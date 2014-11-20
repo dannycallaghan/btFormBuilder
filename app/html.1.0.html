@@ -1,0 +1,360 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+  <style>
+    .ng-hide,
+    .ng-cloak {
+      display: none !important;
+    }
+  </style>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <!-- build:css styles/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+  <!-- endbower -->
+  <!-- endbuild -->
+  <!-- build:css({.tmp,app}) styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild -->
+</head>
+<body ng-app="app">
+
+
+<div class="container">
+  <div class="row">
+    <section class="col-sm-10 col-sm-offset-1 col-xs-12">
+
+      <div data-ng-form novalidate name="form.form-builder" bt-form-builder-generator-form id="form-builder">
+
+        <h1>Form Builder</h1>
+
+        <tabset justified="true">
+          <tab data-ng-repeat="tab in ::form.tabs" heading="{{::tab.title}}" active="tab.active" disabled="tab.disabled">
+            <!-- Tab 1 -->
+            <fieldset data-ng-if="::$index === 0">
+
+              <p class="required"><span>*</span> Required field</p>
+
+              <!-- TODO: Client list? -->
+
+              <!-- Form name -->
+              <div  bt-form-builder-element
+                    type="text"
+                    label="Form Display Name"
+                    id="form-display-name"
+                    placeholder="e.g. Witness Statement"
+                    data-is-required="true"
+                    data-ng-model="form.data.details"
+                    data-model="name"
+                    data-help="Visible to clients, as a link to this form."
+                >
+              </div>
+
+              <!-- Submit button -->
+              <div  bt-form-builder-element
+                    type="text"
+                    label="Submit button text"
+                    id="submit-button-text"
+                    placeholder="e.g. Save"
+                    data-is-required="true"
+                    data-ng-model="form.data.details"
+                    data-model="submit"
+                >
+              </div>
+
+              <!-- Cancel button -->
+              <div  bt-form-builder-element
+                    type="text"
+                    label="Cancel button text"
+                    id="cancel-button-text"
+                    placeholder="e.g. Quit"
+                    data-is-required="true"
+                    data-ng-model="form.data.details"
+                    data-model="cancel"
+                >
+              </div>
+
+              <!-- Success message -->
+              <div  bt-form-builder-element
+                    type="text"
+                    label="Success message"
+                    id="success-message"
+                    placeholder="e.g. Thank you. Your form has been submitted."
+                    data-is-required="true"
+                    data-ng-model="form.data.details"
+                    data-model="success"
+                >
+              </div>
+
+              <!-- Error message -->
+              <div  bt-form-builder-element
+                    type="text"
+                    label="Error message"
+                    id="error-message"
+                    placeholder="e.g. Sorry, we could not submit your form."
+                    data-is-required="true"
+                    data-ng-model="form.data.details"
+                    data-model="error"
+                >
+              </div>
+
+            </fieldset>
+            <!-- Tab 2 -->
+            <fieldset data-ng-if="::$index === 1">
+
+              <p class="required"><span>*</span> Required field</p>
+
+              <div data-ng-form novalidate name="create.form-builder-create-element" bt-form-builder-create-element id="form-builder-create-element">
+
+                <div class="well white overflow-auto">
+
+                  <!-- Element type -->
+                  <div  bt-form-builder-element
+                        type="radio"
+                        label="Element type"
+                        id="form-element-type"
+                        data-is-required="true"
+                        data-ng-model="create.data"
+                        data-model="elementType"
+                        data-inline="true"
+                        data-options="[
+                          {
+                            'value': 'field',
+                            'label': 'Field (input, select, textarea, etc)'
+                          },
+                          {
+                            'value': 'fieldset',
+                            'label': 'Fieldset (A set of fields)'
+                          }
+                        ]"
+                    >
+                  </div>
+
+                  <!-- Element name -->
+                  <div  bt-form-builder-element
+                        type="text"
+                        label="Element name"
+                        id="form-element-name"
+                        placeholder="e.g. Witness name"
+                        data-is-required="false"
+                        data-ng-model="create.data"
+                        data-model="name"
+                        data-help="You can change this when you configure the element."
+                    >
+                  </div>
+
+                  <button class="btn btn-warning pull-right" type="button" data-ng-disabled="!create.data.name.length" data-ng-click="create.createElement()">Create {{create.data.elementType}}</button>
+
+                </div>
+
+              </div>
+
+              <div data-ng-repeat="element in form.data.elements">
+                <div class="well">
+
+
+                  <div data-ng-form novalidate name="config.form-builder-config-element" bt-form-builder-config-element id="form-builder-config-element">
+                    <h3>{{element.name}} <div bt-form-builder-generator-toggle-view></div></h3>
+                    <fieldset data-ng-show="toggled">
+
+                      <!-- Element name -->
+                      <div  bt-form-builder-element
+                            type="text"
+                            label="Fieldset name"
+                            id="form-fieldset-name"
+                            placeholder="e.g. Witness Details"
+                            data-is-required="true"
+                            data-ng-model="element"
+                            data-model="name"
+                        >
+                      </div>
+
+                      <!-- Fieldset -->
+                      <div data-ng-if="element.elementType === 'fieldset'" bt-form-builder-config-fieldset>
+                      </div>
+
+                      <!-- Field -->
+                      <div data-ng-if="element.elementType === 'field'" bt-form-builder-config-field>
+
+                        <!-- Field type -->
+                        <div  bt-form-builder-element
+                              type="select"
+                              label="Field type"
+                              id="form-field-type"
+                              data-is-required="true"
+                              data-ng-model="element"
+                              data-model="type"
+                              data-options="{{::field.types}}"
+                          >
+                        </div>
+
+                        <!-- Required -->
+                        <div  bt-form-builder-element
+                              type="checkbox"
+                              label="Required"
+                              id="form-field-required"
+                              data-is-required="false"
+                              data-ng-model="element"
+                              data-model="required"
+                          >
+                        </div>
+
+                        <!-- Select prompt -->
+                        <div  bt-form-builder-element
+                              type="text"
+                              label="Select prompt"
+                              id="form-field-prompt"
+                              placeholder="e.g. -- Select Incident Type --"
+                              data-is-required="false"
+                              data-ng-model="element"
+                              data-model="prompt"
+                              data-help="Initial value, before the user has selected an option."
+                              data-ng-if="element.type === 'select'"
+                          >
+                        </div>
+
+                        <div data-ng-if="element.type === 'select'" data-ng-repeat="option in element.options" class="well white overflow-auto">
+
+                          <i data-ng-if="element.options.length > 1" class="pull-right glyphicon glyphicon-trash pointer" data-ng-click="field.removeOption(element, option)"></i>
+
+                          <!-- Option -->
+                          <div  bt-form-builder-element
+                                type="text"
+                                label="Option label"
+                                id="form-field-option-{{$index}}"
+                                placeholder="e.g. Fraud"
+                                data-is-required="{{$index === 0 ? 'true' : 'false'}}"
+                                data-ng-model="option"
+                                data-model="label"
+                                data-ng-if="element.type === 'select'"
+                            >
+                          </div>
+
+                          <!-- Default -->
+                          <div  bt-form-builder-element
+                                type="checkbox"
+                                label="Default option"
+                                id="form-field-option-{{$index}}-default"
+                                data-is-required="false"
+                                data-ng-model="option"
+                                data-model="defaultValue"
+                                data-ng-click="field.setDefaultValue(element, option)"
+                                data-ng-if="(element.defaultValue && element.defaultValue === option.value) || !element.defaultValue || !element.defaultValue.length"
+                            >
+                          </div>
+
+                        </div>
+
+                        <p class="overflow-auto" data-ng-if="element.type === 'select'"><button class="btn btn-warning pull-right" data-ng-click="field.addOption(element)">Add option</button></p>
+
+                        <!-- Placeholder -->
+                        <div  bt-form-builder-element
+                              type="text"
+                              label="Placeholder text"
+                              id="form-field-placeholder"
+                              placeholder="e.g. Full name"
+                              data-is-required="false"
+                              data-ng-model="element"
+                              data-model="placeholder"
+                              data-help="Hint text placed inside the element."
+                              data-ng-if="element.type === 'text' || element.type === 'textarea'"
+                          >
+                        </div>
+
+                        <!-- Default date
+                        <div  bt-form-builder-element
+                              type="datepicker"
+                              label="Default date"
+                              id="form-field-defaultdate"
+                              placeholder="31/12/2015"
+                              data-is-required="false"
+                              data-ng-model="element"
+                              data-model="defaultValue"
+                              data-ng-if="element.type === 'datepicker'"
+                          >
+                        </div>
+                        -->
+
+                      </div>
+
+                    </fieldset>
+                  </div>
+                </div>
+              </div>
+
+            </fieldset>
+            <!-- Tab 3 -->
+            <fieldset data-ng-if="$index === 2">
+              This is 3
+            </fieldset>
+            <!-- Tab 4 -->
+            <fieldset data-ng-if="$index === 3">
+
+              <div data-ng-form novalidate name="read.form-reader" bt-form-builder-reader-form id="form-reader">
+
+                <div data-ng-repeat="element in reader.form.elements">
+
+                  <!-- Placeholder -->
+                  <div  bt-form-builder-element
+                        type="{{element.type}}"
+                        label="{{element.name}}"
+                        id="form-field-placeholder"
+                        placeholder="{{element.placeholder}}"
+                        data-is-required="{{element.required}}"
+                        data-ng-model="element"
+                        data-model=""
+                        data.option="{{element.options}}"
+                        data-help="{{element.help}}"
+                    >
+                  </div>
+
+                </div>
+
+              </div>
+
+            </fieldset>
+          </tab>
+        </tabset>
+
+        <button class="btn btn-primary pull-right" data-ng-click="form.showJSON()">Show JSON</button>
+
+      </div>
+
+    </section>
+  </div>
+</div>
+
+
+<!--[if lt IE 9]>
+<script src="bower_components/es5-shim/es5-shim.js"></script>
+<script src="bower_components/json3/lib/json3.min.js"></script>
+<![endif]-->
+
+<!-- build:js scripts/vendor.js -->
+<!-- bower:js -->
+<!-- <script src="bower_components/jquery/jquery.js"></script> -->
+<script src="bower_components/angular/angular.js"></script>
+<!-- <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script> -->
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
+
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+<script src="scripts/app.js"></script>
+
+<script src="scripts/btFormBuilder/app.js"></script>
+<script src="scripts/btFormBuilder/vendor/ui-bootstrap-custom-tpls.js"></script>
+<!-- endbuild -->
+</body>
+</html>

@@ -1,0 +1,53 @@
+#form-builder {
+  padding-bottom: 20px;
+  overflow: auto; }
+  #form-builder fieldset {
+    padding: 20px 0; }
+  #form-builder .required span,
+  #form-builder span.required {
+    color: #f00; }
+  #form-builder label.radio-label {
+    display: block; }
+  #form-builder .radio label,
+  #form-builder .radio-inline label {
+    font-weight: normal; }
+  #form-builder .overflow-auto {
+    overflow: auto; }
+  #form-builder #form-builder-config-element h3 {
+    margin: 0;
+    font-size: 16px; }
+
+.form-group .form-control-feedback {
+  top: 24px;
+  right: 14px;
+  display: none; }
+.form-group .glyphicon-remove.form-control-feedback {
+  color: #a94442;
+  display: none; }
+.form-group.ng-invalid.ng-pristine input,
+.form-group.ng-invalid.ng-pristine select,
+.form-group.ng-invalid.ng-pristine textarea {
+  border-color: #ccc; }
+.form-group.ng-invalid.ng-pristine .glyphicon {
+  display: none; }
+.form-group.ng-invalid.ng-dirty input,
+.form-group.ng-invalid.ng-dirty select,
+.form-group.ng-invalid.ng-dirty textarea {
+  border-color: #a94442; }
+.form-group.ng-invalid.ng-dirty.has-feedback .glyphicon-remove.form-control-feedback {
+  display: block;
+  color: #a94442; }
+.form-group.ng-valid .glyphicon-remove.form-control-feedback {
+  display: none; }
+.form-group .datepicker .form-control-feedback {
+  top: 0px;
+  right: 112px;
+  z-index: 1000; }
+
+.well.white {
+  background-color: #fff; }
+
+.pointer {
+  cursor: pointer; }
+
+/*# sourceMappingURL=main.css.map */

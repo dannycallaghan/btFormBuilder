@@ -1,0 +1,329 @@
+﻿<div class="container">
+  <div class="row">
+
+    <section class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+
+      <!-- TODO : Need to move this -->
+      <style>
+        .bt-form-builder .help-block strong { color: #333; }
+        .bt-form-builder h3 { margin-bottom: 20px; }
+        .bt-form-builder .form-group { margin-bottom: 20px; }
+        .bt-form-builder .form-well.well {
+          margin-right: 0;
+          margin-left: 0;
+          background-color: #fff;
+          border-color: #ddd;
+          border-width: 1px;
+          border-radius: 4px 4px 0 0;
+          overflow: auto;
+        }
+        .bt-form-builder h3 .glyphicon,
+        .bt-form-builder h4 .glyphicon {
+          color: #333;
+          margin-top: 8px;
+        }
+
+        .bt-form-builder h4 .glyphicon {
+          margin-top: 4px;
+          font-size: 14px;
+        }
+
+        .bt-form-builder .margin-bottom {
+          margin-bottom: 20px;
+        }
+
+        .bt-form-builder .dd-handle h4 {
+          margin: 0;
+        }
+
+        .bt-form-builder .dd-handle h4 i {
+          font-weight: normal;
+          font-style: normal;
+        }
+
+        .modal-content {
+          padding: 0;
+        }
+
+        .ng-nestable .glyphicon {
+          color: #333;
+        }
+
+        .ng-nestable.no-drag .glyphicon-move {
+          opacity: 0.3;
+        }
+
+        .nestable-content {
+          padding: 20px 10px;
+        }
+
+        .bt-form-builder .toggle-switch-wrapper .toggle-switch {
+          position: relative;
+        }
+
+        .bt-form-builder .toggle-switch-wrapper .toggle-switch p {
+          font-weight: normal;
+          font-size: 14px;
+        }
+
+
+        /**
+         * Nestable
+         */
+
+        .dd {
+          position: relative;
+          display: block;
+          margin: 0; padding: 0;
+          /* max-width: 600px; */
+          list-style: none;
+          font-size: 13px;
+          line-height: 20px;
+        }
+
+        .dd-list { display: block; position: relative; margin: 0; padding: 0; list-style: none; }
+        .dd-list .dd-list { padding-left: 30px; }
+        .dd-collapsed .dd-list { display: none; }
+
+        .dd-item,
+        .dd-empty,
+        .dd-placeholder {
+          display: block;
+          position: relative;
+          margin: 0;
+          padding: 0;
+          min-height: 20px;
+          font-size: 13px;
+          line-height: 20px;
+        }
+
+        .dd-handle {
+          display: block;
+          margin: 5px 0;
+          padding: 10px 10px;
+          text-decoration: none;
+          border: 1px solid #ddd;
+          background: #fff;
+          -webkit-border-radius: 3px;
+          border-radius: 3px;
+        }
+        .dd-handle:hover {background: #fff; }
+
+        .dd-item > button { display: block; position: relative; cursor: pointer; float: left; width: 25px; height: 30px; margin: 5px 0; padding: 0; text-indent: 100%; white-space: nowrap; overflow: hidden; border: 0; background: transparent; font-size: 12px; line-height: 1; text-align: center; font-weight: bold; }
+        .dd-item > button:before { content: '+'; display: block; position: absolute; width: 100%; text-align: center; text-indent: 0; }
+        .dd-item > button[data-action="collapse"]:before { content: '-'; }
+
+        .dd-placeholder,
+        .dd-empty { margin: 5px 0; padding: 0; min-height: 30px; background: #f2fbff; border: 1px dashed #b6bcbf; box-sizing: border-box; -moz-box-sizing: border-box; }
+        .dd-empty { border: 1px dashed #bbb; min-height: 100px; background-color: #e5e5e5;
+          background-size: 60px 60px;
+          background-position: 0 0, 30px 30px;
+        }
+
+        .dd-dragel { position: absolute; pointer-events: none; z-index: 9999; }
+        .dd-dragel > .dd-item .dd-handle { margin-top: 0; }
+        .dd-dragel .dd-handle {
+          -webkit-box-shadow: 2px 4px 6px 0 rgba(0,0,0,.1);
+          box-shadow: 2px 4px 6px 0 rgba(0,0,0,.1);
+        }
+
+        /**
+         * Nestable Extras
+         */
+
+        .nestable-lists { display: block; clear: both; padding: 30px 0; width: 100%; border: 0; border-top: 2px solid #ddd; border-bottom: 2px solid #ddd; }
+
+        @media only screen and (min-width: 700px) {
+
+          .dd + .dd { margin-left: 2%; }
+
+        }
+
+        .dd-hover > .dd-handle { background: #2ea8e5 !important; }
+
+        /**
+         * Nestable Draggable Handles
+         */
+
+        .dd3-content { display: block;margin: 5px 0;
+          padding: 10px 10px 10px 50px;
+          text-decoration: none;
+          border: 1px solid #ebebeb;
+          background: #fff;
+          -webkit-border-radius: 3px;
+          border-radius: 3px;
+        }
+        .dd-dragel > .dd3-item > .dd3-content { margin: 0; }
+
+        .dd3-item > button { margin-left: 40px; }
+
+        .dd3-handle {
+          position: absolute;
+          margin: 0;
+          left: 0;
+          top: 0;
+          cursor: pointer;
+          width: 40px;
+          text-indent: 100%;
+          white-space: nowrap;
+          overflow: hidden;
+          border: 1px solid #ebebeb;
+          background: #fff;
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+        }
+        .dd3-handle:before { content: '≡'; display: block; position: absolute; left: 0; top: 10px; width: 100%; text-align: center; text-indent: 0; color: #ccc; font-size: 20px; font-weight: normal; }
+        .dd3-handle:hover { background: #f7f7f7; }
+
+
+      </style>
+
+      <ng-form novalidate name="formBuilder" bt-form-builder class="bt-form-builder">
+        <legend>Form Builder</legend>
+        <p class="required"><span>*</span> Required field</p>
+        <fieldset>
+          <h3>Form Configuration <a ng-click="fb.builder.show.formConfiguration = !fb.builder.show.formConfiguration" class="pull-right pointer"><i class="glyphicon" tooltip="Show Form Configuration" ng-class="{ 'glyphicon-chevron-up' : fb.builder.show.formConfiguration, 'glyphicon-chevron-down' : !fb.builder.show.formConfiguration}"></i></a></h3>
+
+          <div ng-show="fb.builder.show.formConfiguration">
+
+            <!-- Client list -->
+            <div class="form-group has-feedback">
+              <label for="fb-details-clients">Client(s) <span class="required">*</span></label>
+              <div id="fb-details-clients" translation-texts="{buttonDefaultText : 'Select client(s)', checkAll : 'Select all', uncheckAll : 'Deselect all', dynamicButtonTextSuffix : 'selected'}" data-ng-dropdown-multiselect="" options="fb.builder.clientList.data" selected-model="fb.data.details.clients" extra-settings="fb.builder.clientList.settings"></div>
+              <span class="help-block" data-ng-if="!fb.builder.clientList.displayLabels.length">The form will be available to the selected client(s) only.</span>
+              <span class="help-block" data-ng-if="fb.builder.clientList.displayLabels.length">The form will be available to <strong>{{fb.builder.clientList.displayLabels}}</strong> only.</span>
+              <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+              <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+            </div>
+
+            <!-- Form name -->
+            <div class="form-group has-feedback">
+              <label for="fb-details-name">Form Display Name <span class="required">*</span></label>
+              <input type="text" name="fb-details-name" id="fb-details-name" class="form-control" data-ng-model="fb.data.details.identifier" required="required" custom-validation placeholder="e.g. Witness Statement" />
+              <span class="help-block">Visible to clients, as a link to this form.</span>
+              <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+              <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+            </div>
+
+            <!-- Form identifier -->
+            <div class="form-group">
+              <label for="fb-details-identifier">Form Name</label>
+              <input type="text" name="fb-details-identifier" disabled id="fb-details-identifier" class="form-control" data-ng-model="fb.data.details.name" />
+              <span class="help-block">For validation. Not visible to clients.</span>
+            </div>
+
+            <!-- Intro text -->
+            <div class="form-group">
+              <label for="fb-details-intro">Introduction / Summary Text</label>
+              <textarea name="intro" id="fb-details-intro" class="form-control" data-ng-model="fb.data.details.intro" placeholder="e.g. The following form must be completed by the arresting officer." />
+              <span class="help-block">Introduction or summary text to be seen at the top of the form.</span>
+            </div>
+
+            <!-- Buttons -->
+            <div class="row">
+              <div class="col-sm-5 col-xs-12">
+                <!-- Save button -->
+                <div class="form-group has-feedback">
+                  <label for="fb-details-submit">Submit button text <span class="required">*</span></label>
+                  <input type="text" name="fb-details-submit" id="fb-details-submit" class="form-control" data-ng-model="fb.data.details.submit" required="required" custom-validation placeholder="e.g. Save"  />
+                  <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+                  <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+                </div>
+              </div>
+              <div class="col-sm-5 col-sm-offset-2 col-xs-12">
+                <!-- Cancel button -->
+                <div class="form-group has-feedback">
+                  <label for="fb-details-cancel">Cancel button text <span class="required">*</span></label>
+                  <input type="text" name="fb-details-cancel" id="fb-details-cancel" class="form-control" data-ng-model="fb.data.details.cancel" required="required" custom-validation placeholder="e.g. Cancel"  />
+                  <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+                  <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Success message -->
+            <div class="form-group has-feedback">
+              <label for="fb-details-success">Success message <span class="required">*</span></label>
+              <input type="text" name="fb-details-success" id="fb-details-success" class="form-control" data-ng-model="fb.data.details.success" required="required" custom-validation placeholder="e.g. Thank you. Your form has been submitted." />
+              <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+              <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+            </div>
+
+            <!-- Error message -->
+            <div class="form-group has-feedback">
+              <label for="fb-details-error">Error message <span class="required">*</span></label>
+              <input type="text" name="fb-details-error" id="fb-details-error" class="form-control" data-ng-model="fb.data.details.error" required="required" custom-validation placeholder="e.g. Sorry, we could not submit your form" />
+              <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+              <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+            </div>
+
+          </div>
+
+          <h3>Form Elements <a ng-click="fb.builder.show.formElements = !fb.builder.show.formElements" class="pull-right pointer"><i class="glyphicon" tooltip="Show Form Elements" ng-class="{ 'glyphicon-chevron-up' : fb.builder.show.formElements, 'glyphicon-chevron-down' : !fb.builder.show.formElements}"></i></a></h3>
+
+          <div ng-show="fb.builder.show.formElements">
+
+            <!-- Add form item -->
+            <div ng-form="createFormElement" class="form-well well">
+              <div class="form-group has-feedback" ng-init="fb.builder.element.type = 'element'">
+                <div class="margin-bottom">
+                  <label class="radio-inline">
+                    <input type="radio" ng-click="fb.builder.element.type = 'element'" checked="checked" id="fb-builder-element-type-element" name="fb-builder-element-type" value="element" /> Form Element (Input, select, textarea, etc)
+                  </label>
+                  <label class="radio-inline">
+                    <input type="radio" ng-click="fb.builder.element.type = 'fieldset'" id="fb-builder-element-type-fieldset" name="fb-builder-element-type" value="fieldset" /> Fieldset (A group of form elements)
+                  </label>
+                </div>
+                <label for="fb-builder-element-name">Name <span class="required">*</span></label>
+                <input type="text" name="fb-builder-element-name" id="fb-builder-element-name" class="form-control" ng-model="fb.builder.element.name" required="required" custom-validation placeholder="e.g. {{fb.builder.element.type === 'fieldset' ? 'Witness Details' : 'Witness Name'}}" />
+                <span class="help-block">{{fb.builder.element.type === 'fieldset' ? 'A name to help you identify this group of form elements.' : 'A name to help you identify this form element.'}}</span>
+                <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+                <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+                <a class="btn btn-sm btn-warning pull-right" ng-click="addFormElement()" ng-disabled="!fb.builder.element.name.length">Add Form Element</a>
+              </div>
+            </div>
+
+            <div class="ng-nestable" ng-model="fb.data.elements" ng-init="fb.builder.show[$item.guid] = false">
+
+              <div class="pull-right"><a ng-click="toggleFormElementDetails($item, this)" class="pointer" tooltip="Show configuration"><i class="glyphicon" ng-class="{ 'glyphicon-chevron-up' : fb.builder.show[$item.guid], 'glyphicon-chevron-down' : !fb.builder.show[$item.guid]}"></i></a> <a ng-click="removeFormElement($item)" class="pointer"><i class="glyphicon glyphicon-remove"></i></a></div>
+
+              <h4 class="pointer">
+                <i class="glyphicon glyphicon-move"></i> {{$item.displayName}} <i ng-if="$item.type === 'fieldset'">(fieldset)</i>
+              </h4>
+
+              <div class="nestable-content" ng-if="fb.builder.show[$item.guid]">
+
+                <bt-form-builder-element-picker ng-if="$item.type !== 'fieldset'"></bt-form-builder-element-picker>
+
+                <bt-form-builder-fieldset ng-if="$item.type == 'fieldset'"></bt-form-builder-fieldset>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="form-button-group" ng-if="fb.data.elements.length">
+            <button class="btn btn-primary btn-small" type="button" ng-click="saveAll()">Save</button>
+          </div>
+
+          <script type="text/ng-template" id="removeModal.html">
+            <div class="modal-header">
+              <h3 class="modal-title">Remove {{removeModal.type}}</h3>
+            </div>
+            <div class="modal-body">
+              <p>Are you sure you want to remove this {{removeModal.type}}?</p>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary" ng-click="removeModal.ok()">Yes</button>
+              <button class="btn btn-warning" ng-click="removeModal.cancel()">No</button>
+            </div>
+          </script>
+
+        </fieldset>
+      </ng-form>
+
+    </section>
+
+  </div>
+</div>
