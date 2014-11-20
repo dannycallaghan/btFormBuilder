@@ -19,6 +19,7 @@
   <!-- build:css styles/vendor.css -->
   <!-- bower:css -->
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="styles/vendor/angular-gridster.css" />
   <!-- endbower -->
   <!-- endbuild -->
   <!-- build:css({.tmp,app}) styles/main.css -->
@@ -207,7 +208,7 @@
                               type="checkbox"
                               label="Required"
                               id="form-field-required"
-                              data-is-required="true"
+                              data-is-required="false"
                               data-ng-model="element"
                           >
                         </div>
@@ -237,12 +238,6 @@
                                 placeholder="e.g. Fraud"
                                 data-is-required="{{$index === 0 ? 'true' : 'false'}}"
                                 data-ng-model="option.label"
-                            >
-                          </div>
-
-                          <div  bt-form-builder-element
-                                type="text"
-                                data-ng-model="option.value"
                             >
                           </div>
 
@@ -276,6 +271,22 @@
             <!-- Tab 3 -->
             <fieldset data-ng-if="$index === 2">
 
+              <div bt-form-builder-layout>
+
+                <div data-gridster="gridsterOpts" id="layout-grid">
+                  <ul>
+                    <li gridster-item="item" ng-repeat="item in form.data.elements">
+                      <h4>{{item.name}}</h4>
+                      <input type="hidden" integer ng-model="item.row" />
+                      <input type="hidden" integer ng-model="item.col" />
+                      <input type="hidden" integer ng-model="item.sizeX" />
+                      <input type="hidden" integer ng-model="item.sizeY" />
+                    </li>
+                  </ul>
+                </div>
+
+              </div>
+
               <button class="btn btn-primary pull-right" data-ng-disabled="form['form-builder'].$invalid || form.data.elements.length === 0" data-ng-click="form.saveForPreview()">Save and Preview</button>
 
             </fieldset>
@@ -284,20 +295,24 @@
 
               <div data-ng-form novalidate name="read.form-reader" bt-form-builder-reader-form id="form-reader">
 
-                <div data-ng-repeat="element in reader.form.elements">
+                <div data-ng-repeat="element in reader.form.elements | orderBy:['row', 'col']">
 
-                  <div  bt-form-builder-element
-                        type="{{element.type}}"
-                        label="{{element.name}}"
-                        id="{{element.id}}"
-                        placeholder="{{element.placeholder}}"
-                        data-is-required="{{element.required}}"
-                        data-ng-model="element.value"
-                        data-inline="{{element.inline}}"
-                        data-options="{{element.options}}"
-                        data-help="{{element.help}}"
-                        data-prompt="{{element.prompt}}"
-                    >
+                  <div class="col-xs-12" ng-class="{ 'col-md-6' : element.sizeX === 1, 'col-md-12' : element.sizeX === 2 }">
+
+                    <div  bt-form-builder-element
+                          type="{{element.type}}"
+                          label="{{element.name}}"
+                          id="{{element.id}}"
+                          placeholder="{{element.placeholder}}"
+                          data-is-required="{{element.required}}"
+                          data-ng-model="element.value"
+                          data-inline="{{element.inline}}"
+                          data-options="{{element.options}}"
+                          data-help="{{element.help}}"
+                          data-prompt="{{element.prompt}}"
+                      >
+                    </div>
+
                   </div>
 
                 </div>
@@ -310,14 +325,13 @@
           </tab>
         </tabset>
 
-        <!-- <button class="btn btn-inverse" data-ng-click="form.showJSON()">Show JSON (for testing)</button> -->
+        <button class="btn btn-inverse" data-ng-click="form.showJSON()">Show JSON (for testing)</button>
 
       </div>
 
     </section>
   </div>
 </div>
-
 
 <!--[if lt IE 9]>
 <script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -326,8 +340,10 @@
 
 <!-- build:js scripts/vendor.js -->
 <!-- bower:js -->
-<!-- <script src="bower_components/jquery/jquery.js"></script> -->
+<script src="bower_components/jquery/jquery.js"></script>
+<script src="scripts/btFormBuilder/vendor/jquery.resize.js"></script>
 <script src="bower_components/angular/angular.js"></script>
+<script src="scripts/btFormBuilder/vendor/angular-gridster.js"></script>
 <!-- <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script> -->
 <script src="bower_components/angular-resource/angular-resource.js"></script>
 <script src="bower_components/angular-cookies/angular-cookies.js"></script>

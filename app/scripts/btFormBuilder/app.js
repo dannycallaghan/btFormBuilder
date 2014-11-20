@@ -3,11 +3,80 @@
   'use strict';
 
   angular.module('btFormBuilder', ['btFormBuilderGenerator', 'btFormBuilderReader', 'btFormBuilderElements', 'ui.bootstrap']);
-  angular.module('btFormBuilderGenerator', ['btUtils']);
+  angular.module('btFormBuilderGenerator', ['btUtils', 'gridster']);
   angular.module('btFormBuilderReader', []);
   angular.module('btFormBuilderElements', ['btFormBuilderElementTemplates']);
   angular.module('btFormBuilderElementTemplates', []);
   angular.module('btUtils', []);
+
+  angular
+    .module('btFormBuilderGenerator')
+    .directive('btFormBuilderLayout', [function () {
+      return {
+        restrict: 'A',
+        controller: function ($scope) {
+
+          $scope.gridsterOpts = {
+            columns: 2, // the width of the grid, in columns
+            pushing: true, // whether to push other items out of the way on move or resize
+            floating: true, // whether to automatically float items up so they stack (you can temporarily disable if you are adding unsorted items with ng-repeat)
+            swapping: false, // whether or not to have items of the same size switch places instead of pushing down if they are the same size
+            width: 'auto', // can be an integer or 'auto'. 'auto' scales gridster to be the full width of its containing element
+            colWidth: 'auto', // can be an integer or 'auto'.  'auto' uses the pixel width of the element divided by 'columns'
+            rowHeight: 100, // can be an integer or 'match'.  Match uses the colWidth, giving you square widgets.
+            margins: [20, 20], // the pixel distance between each widget
+            outerMargin: false, // whether margins apply to outer edges of the grid
+            isMobile: false, // stacks the grid items if true
+            mobileBreakPoint: 600, // if the screen is not wider that this, remove the grid layout and stack the items
+            mobileModeEnabled: true, // whether or not to toggle mobile mode when screen width is less than mobileBreakPoint
+            minColumns: 1, // the minimum columns the grid must have
+            minRows: 2, // the minimum height of the grid, in rows
+            maxRows: 100,
+            defaultSizeX: 2, // the default width of a gridster item, if not specifed
+            defaultSizeY: 1, // the default height of a gridster item, if not specified
+            resizable: {
+              enabled: true,
+              handles: ['n', 'e', 's', 'w', 'ne', 'se', 'sw', 'nw'],
+              //start: function(event, $element, widget) {}, // optional callback fired when resize is started,
+              //resize: function(event, $element, widget) {}, // optional callback fired when item is resized,
+              //stop: function(event, $element, widget) { alert(JSON.stringify($scope.standardItems)); } // optional callback fired when item is finished resizing
+            },
+            draggable: {
+              enabled: true, // whether dragging items is supported
+              handle: '.my-class', // optional selector for resize handle
+              //start: function(event, $element, widget) {}, // optional callback fired when drag is started,
+              //drag: function(event, $element, widget) {}, // optional callback fired when item is moved,
+              //stop: function(event, $element, widget) { alert(JSON.stringify($scope.standardItems)); } // optional callback fired when item is finished dragging
+            }
+          };
+
+          $scope.$watch('standardItems', function(newItems, oldItems){
+
+            console.log('changed');
+
+
+            // one of the items changed
+          }, true);
+
+          // these map directly to gridsterItem options
+          $scope.standardItems = [
+            {
+              sizeX: 2,
+              sizeY: 1,
+              row: 0,
+              col: 0
+            },
+            {
+              sizeX: 2,
+              sizeY: 1,
+              row: 0,
+              col: 0
+            }
+          ];
+
+        }
+      }
+    }]);
 
   angular
     .module('btFormBuilderElementTemplates')
@@ -82,30 +151,83 @@
     .module('btFormBuilder')
     .factory('btFormBuilderDataService', function () {
       var data, builder, elementTemplate, savedForm, fieldTypes;
+      //data = {
+      //  details: {
+      //    submit : 'Send',
+      //    cancel : 'Cancel',
+      //    success : 'Thank you. Your form has been submitted.',
+      //    error : 'Sorry, we could not submit your form.',
+      //    name: 'Hello'
+      //  },
+      //  elements: []
+      //};
+
       data = {
-        details: {
-          submit : 'Send',
-          cancel : 'Cancel',
-          success : 'Thank you. Your form has been submitted.',
-          error : 'Sorry, we could not submit your form.',
-          name: 'Hello'
+        "details": {
+          "submit": "Send",
+          "cancel": "Cancel",
+          "success": "Thank you. Your form has been submitted.",
+          "error": "Sorry, we could not submit your form.",
+          "name": "Hello"
         },
-        elements: []
-        //elements: [
-        //  {
-        //    elementType: "field",
-        //    guid: "f207ddffba7d9b4b27b8715bab463ad4eaae",
-        //    name: "Test 1",
-        //    type: "select",
-        //    options: [
-        //      {
-        //        label : 'Alpha',
-        //        value : 'alpha'
-        //      }
-        //    ]
-        //  }
-        //]
+        "elements": [
+          {
+            "guid": "c677b1345d9a454dc858f7d57ff3644e1a65",
+            "elementType": "field",
+            "name": "One",
+            "type": "text",
+            "value": "",
+            "options": [
+              {
+                "label": "",
+                "$$hashKey": "object:65"
+              }
+            ],
+            "sizeX": 2,
+            "sizeY": 1,
+            "row": 1,
+            "col": 1,
+            "$$hashKey": "object:58"
+          },
+          {
+            "guid": "7a06e2d8c7a9ec43d7c8aebc3bb0d304d684",
+            "elementType": "field",
+            "name": "Two",
+            "type": "text",
+            "value": "",
+            "options": [
+              {
+                "label": "",
+                "$$hashKey": "object:85"
+              }
+            ],
+            "sizeX": 2,
+            "sizeY": 1,
+            "row": 1,
+            "col": 2,
+            "$$hashKey": "object:78"
+          },
+          {
+            "guid": "f77757c751b435494b58cb1582f750f89192",
+            "elementType": "field",
+            "name": "Three",
+            "type": "text",
+            "value": "",
+            "options": [
+              {
+                "label": "",
+                "$$hashKey": "object:105"
+              }
+            ],
+            "sizeX": 2,
+            "sizeY": 1,
+            "row": 0,
+            "col": 0,
+            "$$hashKey": "object:98"
+          }
+        ]
       };
+
       builder = {
         element : {
           type : 'element'
@@ -159,7 +281,7 @@
         tabs = [
           { title:'Settings'},
           { title:'Form Elements', disabled: true },
-          { title:'Layout', disabled: true },
+          { title:'Layout', disabled: false },
           { title:'Preview', disabled: true }
         ];
         return tabs;
@@ -236,7 +358,8 @@
         controllerAs: 'create',
         controller: function () {
           var create = this,
-              element;
+              element,
+              index = 0;
           create.createElement = createElement;
           create.reset = reset;
           create.data = {
@@ -254,7 +377,11 @@
                 {
                   label : ''
                 }
-              ]
+              ],
+              sizeX: 2,
+              sizeY: 1,
+              row: index++,
+              col: 0
             };
             btFormBuilderDataService.data.elements.push(element);
             create.reset();

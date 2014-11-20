@@ -50,4 +50,13 @@
 .pointer {
   cursor: pointer; }
 
+.gridster-loaded .gridster-item {
+  background-color: #1ba19a; }
+  .gridster-loaded .gridster-item h4 {
+    text-align: center;
+    padding: 10px; }
+
+#layout-grid {
+  margin-bottom: 20px; }
+
 /*# sourceMappingURL=main.css.map */

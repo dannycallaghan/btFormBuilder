@@ -108,3 +108,16 @@
 .pointer {
   cursor: pointer;
 }
+
+
+.gridster-loaded .gridster-item {
+  background-color: #1ba19a;
+  h4 {
+    text-align: center;
+    padding: 10px;
+  }
+}
+
+#layout-grid {
+  margin-bottom: 20px;
+}
